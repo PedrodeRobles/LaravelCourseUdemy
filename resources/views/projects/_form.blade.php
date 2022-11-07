@@ -1,17 +1,37 @@
 @csrf
-<label>
-    Título del proyecto <br>
-    <input type="text" name="title" value="{{ old('title', $project->title) }}">
-</label>
-<br>
-<label>
-    URL del proyecto <br>
-    <input type="text" name="url" value="{{ old('url', $project->url) }}">
-</label>
-<br>
-<label>
-    Descripción del proyecto <br>
-    <textarea name="description"> {{ old('description', $project->description) }}</textarea>
-</label>
-<br>
-<button>{{ $btnText }}</button>
+<div class="form-group">
+    <label>
+        Título del proyecto
+    </label>
+    <input 
+        class="form-control border-0 bg-light shadow-sm"
+        type="text" 
+        name="title" 
+        value="{{ old('title', $project->title) }}">
+    <br>
+</div>
+
+<div class="form-group">
+    <label>
+        URL del proyecto
+    </label>
+    <input 
+        class="form-control border-0 bg-light shadow-sm"
+        type="text" 
+        name="url" 
+        value="{{ old('url', $project->url) }}">
+    <br>
+</div>
+
+<div class="form-group">
+    <label>
+        Descripción del proyecto
+    </label>
+    <textarea 
+        class="form-control border-0 bg-light shadow-sm"
+        name="description"> {{ old('description', $project->description) }}
+    </textarea>
+    <br>
+</div>
+
+<button class="btn btn-primary btn-lg btn-block text-white">{{ $btnText }}</button>

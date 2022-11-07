@@ -14,5 +14,4 @@
     @endauth
 
     <p>{{ $project->description }}</p>
-    {{-- <p>{{ $project->description }}</p> --}}
 @endsection
