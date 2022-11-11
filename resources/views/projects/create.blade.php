@@ -10,7 +10,11 @@
 
             @include('partials.validation-errors') 
 
-            <form class="bg-white py-3 px-4 shadow rounded" method="POST" action="{{ route('projects.store') }}">
+            <form 
+                class="bg-white py-3 px-4 shadow rounded" 
+                method="POST" 
+                action="{{ route('projects.store') }}"
+                enctype="multipart/form-data">
                 <h1 class="display-4">Nuevo portafolio</h1>
                 <hr>
                 @include('projects._form', ['btnText' => 'Guardar'])

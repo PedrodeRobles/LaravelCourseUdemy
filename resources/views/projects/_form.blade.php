@@ -1,4 +1,14 @@
 @csrf
+<div class="input-group mb-3">
+    <div class="custom-file">
+        <input name="image" type="file" class="custom-file-input" id="inputGroupFile02">
+        <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+    </div>
+    <div class="input-group-append">
+        <span class="input-group-text" id="">Upload</span>
+    </div>
+</div>
+
 <div class="form-group">
     <label>
         Título del proyecto
@@ -33,6 +43,8 @@
     </textarea>
     <br>
 </div>
+
+
 
 <button class="btn btn-primary btn-lg btn-block text-white">{{ $btnText }}</button>
 
