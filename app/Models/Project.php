@@ -12,11 +12,17 @@ class Project extends Model
     protected $fillable = [
         'title',
         'url',
-        'description'
+        'description',
+        'category_id'
     ];
 
     public function getRouteKeyName()
     {
         return 'url';
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }
