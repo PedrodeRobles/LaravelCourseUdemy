@@ -1,4 +1,11 @@
 @csrf
+@if ($project->image)
+    <img class="card-img-top mb-2" 
+        style="height: 250px; object-fit: cover" 
+        src="/storage/{{ $project->image }}" 
+        alt="Card image cap">
+@endif
+
 <div class="input-group mb-3">
     <div class="custom-file">
         <input name="image" type="file" class="custom-file-input" id="inputGroupFile02">

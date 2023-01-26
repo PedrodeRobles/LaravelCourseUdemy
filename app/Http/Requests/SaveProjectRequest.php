@@ -24,12 +24,15 @@ class SaveProjectRequest extends FormRequest
      */
     public function rules()
     {
-        // dd($this->route('project'));
         return [
             'title'       => 'required',
             'url'         => [
                 'required',
                 Rule::unique('projects')->ignore($this->route('project')),
+            ],
+            'image' => [
+                $this->route('project') ? 'nullable' : 'required',
+                'mimes:jpeg,png',
             ],
             'description' => 'required',
         ];

@@ -20,7 +20,10 @@
         @forelse ($projects as $project)
             <div class="card" style="width: 18rem;">
                 @if ($project->image)
-                    <img class="card-img-top" src="/storage/{{ $project->image }}" alt="Card image cap">
+                    <img class="card-img-top" 
+                        style="height: 150px; object-fit: cover" 
+                        src="/storage/{{ $project->image }}" 
+                        alt="Card image cap">
                 @endif
                 <div class="card-body">
                     <h5 class="card-title">{{ $project->title }}</h5>

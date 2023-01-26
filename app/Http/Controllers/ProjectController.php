@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ProjectSaved;
 use App\Http\Requests\SaveProjectRequest;
 use App\Models\Project;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -35,6 +35,8 @@ class ProjectController extends Controller
         $project->image = $request->file('image')->store('images', 'public');
         $project->save();
 
+        ProjectSaved::dispatch($project);
+        
         return redirect()->route('projects.index')->with('status', 'El proyecto fue creado con éxito');
     }
 
@@ -50,14 +52,29 @@ class ProjectController extends Controller
 
     public function update(SaveProjectRequest $request, Project $project)
     {
-        $project->update($request->validated());
+        if ( $request->hasFile('image') ) {
+            Storage::disk('public')->delete($project->image);
+
+            $project->fill( $request->validated() );
+            $project->image = $request->file('image')->store('images', 'public');
+            $project->save();
+
+            ProjectSaved::dispatch($project);
+
+        } else {
+            $project->update( array_filter($request->validated()));
+        }
+
 
         return redirect()->route('projects.show', $project)->with('status', 'El proyecto fue actualizado con éxito');
     }
 
     public function destroy(Project $project)
     {
+        Storage::disk('public')->delete($project->image);
+
         $project->delete();
+        
         return redirect()->route('projects.index')->with('status', 'El proyecto fue eliminado con éxito');
     }
 }
