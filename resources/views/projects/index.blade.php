@@ -6,7 +6,14 @@
 @section('content')
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1 class="display-4 mb-0">Portafolio</h1>
+        @isset($category)
+            <div>
+                <h1 class="display-4 mb-0">{{ $category->name }}</h1>
+                <a href="{{ route('projects.index') }}">Regresar al portafolio</a>
+            </div>
+        @else
+            <h1 class="display-4 mb-0">Portafolio</h1>
+        @endisset
         @auth
             <a class="btn btn-primary text-white" href="{{ route('projects.create') }}">
                 Crear proyecto
@@ -27,9 +34,16 @@
                 @endif
                 <div class="card-body">
                     <h5 class="card-title">{{ $project->title }}</h5>
-                    <p class="card-text text-truncate">{{ $project->description }}</p>
                     <p class="card-text">{{ $project->created_at->format('d/m/Y') }}</p>
-                    <a href="{{ route('projects.show', $project) }}" class="btn btn-primary">Ver más...</a>
+                    <p class="card-text text-truncate">{{ $project->description }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{{ route('projects.show', $project) }}" class="btn btn-primary">Ver más...</a>
+                        @if ($project->category_id)
+                            <a href="{{ route('categories.show', $project->category) }}" class="badge badge-secondary bg-black">  
+                                {{ $project->category->name }}
+                            </a>
+                        @endif
+                    </div>
                 </div>
             </div>
         @empty

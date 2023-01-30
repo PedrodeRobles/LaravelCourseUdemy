@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Messagescontroller;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\CategoryController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,6 +16,8 @@ Route::resource('portfolio', ProjectController::class)
     ->names('projects')
     ->parameters(['portfolio' => 'project']);
 
+
+Route::get('categorias/{category}', [CategoryController::class, 'show'])->name('categories.show');
 // Route::get('/portfolio', [ProjectController::class, 'index'])->name('projects.index');
 // Route::get('/portfolio/crear', [ProjectController::class, 'create'])->name('projects.create');
 // Route::get('/portfolio/{project}/editar', [ProjectController::class, 'edit'])->name('projects.edit');

@@ -10,8 +10,12 @@
                 <img class="card-img-top" src="/storage/{{ $project->image }}" alt="Card image cap">
             @endif
             <div class="bg-white p-5 shadow rounded">
-                <h1>{{ $project->title }}</h1>
-        
+                <h1 class="mb-0">{{ $project->title }}</h1>
+                @if ($project->category_id)
+                    <a href="{{ route('categories.show', $project->category) }}" class="badge badge-secondary bg-black mb-1">  
+                        {{ $project->category->name }}
+                    </a>
+                @endif
                 <p class="text-secondary">{{ $project->description }}</p>
                 <p class="text-black-50">{{ $project->created_at->diffForHumans() }}</p>
         
