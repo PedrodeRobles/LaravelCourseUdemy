@@ -26,23 +26,28 @@
             
                     @auth
                         <div class="btn-group btn-group-sm">
-                            <a class="btn btn-primary text-white" href="{{ route('projects.edit', $project) }}">
-                                Editar
-                            </a>
-                            <a class="btn btn-danger"
-                                href="#" 
-                                onclick="document.getElementById('delete-project').submit()">
-                                Eliminar
-                            </a>
-                        </div>
-            
-                        <form id="delete-project"
-                            class="d-none"
-                            action="{{ route('projects.destroy', $project) }}" 
-                            method="POST">
-                            @csrf @method('DELETE')
-                            {{-- <button>Eliminar</button> --}}
-                        </form>
+                            @can('update', $project)
+                                <a class="btn btn-primary text-white" href="{{ route('projects.edit', $project) }}">
+                                    Editar
+                                </a>
+                            @endcan
+                            @can('delete', $project)
+                                <a class="btn btn-danger"
+                                    href="#" 
+                                    onclick="document.getElementById('delete-project').submit()">
+                                    Eliminar
+                                </a>
+                                @endcan
+                            </div>
+                            @can('delete', $project)
+                                <form id="delete-project"
+                                    class="d-none"
+                                    action="{{ route('projects.destroy', $project) }}" 
+                                    method="POST">
+                                    @csrf @method('DELETE')
+                                    {{-- <button>Eliminar</button> --}}
+                                </form>
+                            @endcan
                     @endauth
                 </div>
             </div>

@@ -14,11 +14,11 @@
         @else
             <h1 class="display-4 mb-0">Portafolio</h1>
         @endisset
-        @auth
+        @can('create', $newProject)
             <a class="btn btn-primary text-white" href="{{ route('projects.create') }}">
                 Crear proyecto
             </a>
-        @endauth
+        @endcan
     </div>
 
     <p class="lead text-secondary">Proyectos realizados Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
@@ -53,5 +53,32 @@
         @endforelse
         {{ $projects->links() }}
     </div>
+    @can('view-deleted-projects')    
+        <h4>Papelera</h4>
+        <ul class="list-group">
+            @foreach ($deletedProjects as $deletedProject)
+                <li class="list-item">
+                    {{ $deletedProject->title }}
+                    @can('restore', $deletedProject)
+                    <form method="POST" 
+                        action="{{ route('projects.restore', $deletedProject) }}" 
+                        class="d-inline">
+                        @csrf @method('PATCH')
+                        <button class="btn btn-sm btn-info">Restaurar</button>
+                    </form>
+                    @endcan
+                    @can('forceDelete', $deletedProject)
+                    <form method="POST" 
+                        onsubmit="return confirm('Esta acción no se puede deshacer, ¿Éstas seguro que desea realizar esta acción?')"
+                        action="{{ route('projects.forceDelete', $deletedProject) }}" 
+                        class="d-inline">
+                        @csrf @method('DELETE')
+                        <button class="btn btn-sm btn-danger">Eliminar permanentemente</button>
+                    </form>
+                    @endcan
+                </li>
+            @endforeach
+        </ul>
+    @endcan
 </div>
 @endsection
